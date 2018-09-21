@@ -49,24 +49,26 @@ allCards = $('.card');
 
 allCards.each(function (index, card) {
 	$(this).on('click',function(){
-		openArray.push(card);
-		console.log('click');
-		$(this).addClass('open show'); 
-		
-		console.log(openArray.length);
-	
-		if (openArray.length==2){  //rabotaet dazhe kogda bolshe
+		if (openArray.length<2){
+				openArray.push(card);
+				console.log('click');
+				$(this).addClass('open show'); 
+				console.log(openArray.length);
+			
+			
+		}else{
+			console.log('click 1');
 			setTimeout(function(){
-				$.each(openArray, function(index, card){
-					$(this).removeClass('open show');
+			$.each(openArray, function(index, card){
+				$(this).removeClass('open show');
 				});
-				openArray = [];
-				console.log(openArray);
+			openArray = [];
+			console.log(openArray);
 			}, 1000);
-
-		};		
+	  	};
 	});
 });
+
 });
 
 

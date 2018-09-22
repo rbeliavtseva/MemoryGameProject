@@ -43,38 +43,57 @@ $(document).ready(function(){
 
 var allCards;
 var openCardsArray = [];
+var lastIndex;
 
 
 function matchCheck() {
 	if (openCardsArray[0].firstElementChild.className === openCardsArray[1].firstElementChild.className) {
 		console.log("Match!");
+		$(openCardsArray).each(function (index, card) {
+			$(this).addClass('match'); 
+			});
+		return true;
+
 	}else {
 		console.log("Not a match");
+		return false;
 	};
-	};
+};
+
+
 
 
 allCards = $('.card');
 
 allCards.each(function (index, card) {
 	$(this).on('click',function(){
-		if (openCardsArray.length<2){
-				openCardsArray.push(card);
-				console.log('click');
-				$(this).addClass('open show'); 
-				console.log(openCardsArray.length);
-				matchCheck();
-			
-			
-		}else{
-			setTimeout(function(){
-			$.each(openCardsArray, function(index, card){
-				$(this).removeClass('open show');
-				});
-			openCardsArray = [];
-			console.log(openCardsArray);
-			}, 1000);
-	  	};
+		if(lastIndex!=index) {
+			openCardsArray.push(card);
+			console.log('click');
+			$(this).addClass('open show');
+			lastIndex = index;
+			console.log(openCardsArray.length);
+			if(openCardsArray.length==2)
+			{
+				if(matchCheck())
+				{
+					openCardsArray = [];
+					console.log(openCardsArray);
+				}
+				else
+				{
+					setTimeout(function(){
+						$.each(openCardsArray, function(index, card){
+							$(this).removeClass('open show');
+							});
+						openCardsArray = [];
+						lastIndex = null;
+						console.log(openCardsArray);
+						}, 1000);
+
+				};
+			};
+		};
 	});
 });
 

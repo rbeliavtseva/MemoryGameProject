@@ -42,32 +42,42 @@ function shuffle(array) {
 $(document).ready(function(){
 
 var allCards;
-var openArray = [];
+var openCardsArray = [];
+
+
+function matchCheck() {
+	if (openCardsArray[0].firstElementChild.className === openCardsArray[1].firstElementChild.className) {
+		console.log("Match!");
+	}else {
+		console.log("Not a match");
+	};
+	};
 
 
 allCards = $('.card');
 
 allCards.each(function (index, card) {
 	$(this).on('click',function(){
-		if (openArray.length<2){
-				openArray.push(card);
+		if (openCardsArray.length<2){
+				openCardsArray.push(card);
 				console.log('click');
 				$(this).addClass('open show'); 
-				console.log(openArray.length);
+				console.log(openCardsArray.length);
+				matchCheck();
 			
 			
 		}else{
-			console.log('click 1');
 			setTimeout(function(){
-			$.each(openArray, function(index, card){
+			$.each(openCardsArray, function(index, card){
 				$(this).removeClass('open show');
 				});
-			openArray = [];
-			console.log(openArray);
+			openCardsArray = [];
+			console.log(openCardsArray);
 			}, 1000);
 	  	};
 	});
 });
+
 
 });
 

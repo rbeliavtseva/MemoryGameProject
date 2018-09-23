@@ -35,7 +35,8 @@ function shuffle(array) {
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *   
+  + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
@@ -44,6 +45,8 @@ $(document).ready(function(){
 var allCards;
 var openCardsArray = [];
 var lastIndex;
+var counter = 0;
+var moves = $('.moves');
 
 
 function matchCheck() {
@@ -70,6 +73,14 @@ allCards.each(function (index, card) {
 		if(lastIndex!=index) {
 			openCardsArray.push(card);
 			console.log('click');
+			counter+=1;
+			
+			if (counter==1){
+				moves.text(counter+' Move');
+			}else{
+				moves.text(counter+' Moves');
+			};
+			
 			$(this).addClass('open show');
 			lastIndex = index;
 			console.log(openCardsArray.length);
